@@ -1,0 +1,36 @@
+<div class="messaging-container">
+  <div class="user-toggle">
+    <p>Current User: {{ mockedUserId }}</p>
+    <button (click)="toggleUser()">Switch user</button>
+  </div>
+
+  <form #messageForm="ngForm" (ngSubmit)="sendMessage(messageForm)">
+    <div class="form-group">
+      <label for="message">Message:</label>
+      <textarea
+        id="message"
+        name="message"
+        ngModel
+        #message="ngModel"
+        class="form-control"
+        required
+      ></textarea>
+      <div *ngIf="message.invalid && message.touched" class="input-error">
+        <p>Message is required.</p>
+      </div>
+    </div>
+    <button type="submit" [disabled]="messageForm.invalid">Send</button>
+  </form>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="lastReceivedMessageId" class="alert alert-success">
+    Message {{ lastReceivedMessageId }} processed successfully.
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-error">
+    {{ errorMessage }}
+  </div>
+</div>
